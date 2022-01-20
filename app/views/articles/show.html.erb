@@ -7,3 +7,11 @@
   <strong>Body:</strong>
   <%= @article.body %>
 </p>
+
+<p>
+  <% if @article.image.attached? %>
+    <%= image_tag @article.image %>
+  <% end %>
+</p>
+
+<%= link_to 'Back to Articles', articles_path %>
