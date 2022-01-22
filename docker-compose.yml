@@ -29,5 +29,19 @@ services:
     volumes:
       - .:/myapp # ソースコード変更したらDocker側も即反映されるように
 
+  minio:
+    image: minio/minio:latest
+    command: ["server", "/data", "--console-address", ":9001"] # --console-address オプションの追加
+    ports:
+      - 9000:9000
+      - 9001:9001 # コンソール用のポートフォワード設定追加
+    volumes:
+      - minio:/data
+    environment:
+      MINIO_ROOT_USER: minio # 元 MINIO_ACCESS_KEY
+      MINIO_ROOT_PASSWORD: miniosecret # 元 MINIO_SECRET_KEY
+
 volumes:
   mysql-data:
+  minio:
+    driver: local
